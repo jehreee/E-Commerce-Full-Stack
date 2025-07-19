@@ -153,6 +153,10 @@ const CategoryProduct = () => {
           </div>
         </div>
       </div>
+        {/**Mobile Version */}
+      <div>
+
+      </div>
         
     </div>
   )
