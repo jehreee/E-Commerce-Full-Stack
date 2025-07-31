@@ -7,8 +7,22 @@ const router = require('./routes')
 
 
 const app = express()
+
+const allowedOrigins = [
+  process.env.LOCAL_FRONTEND_URL,
+  process.env.FRONTEND_URL
+];
+
 app.use(cors({
-    origin : process.env.FRONTEND_URL,
+    origin: function (origin, callback) {
+        // Allow requests with no origin (e.g., mobile apps or curl)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+        } else {
+        return callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials : true
 }))
 app.use(express.json())
