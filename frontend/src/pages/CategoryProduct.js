@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import productCategory from '../helpers/productCategory'
 import VerticalCard from '../components/VerticalCard'
 import SummaryApi from '../common'
+import HorizontalCard from '../components/HorizontalCard'
 
 const CategoryProduct = () => {
     const [data, setData] = useState([])
@@ -153,9 +154,50 @@ const CategoryProduct = () => {
           </div>
         </div>
       </div>
-        {/**Mobile Version */}
-      <div>
 
+      {/**Mobile Version */}
+      <div className='lg:hidden flex flex-col gap-10 p-4'>
+        <div className='sticky top-16 z-10 shadow bg-white py-4 px-2 h-fit'>
+          {/** Sort By */}
+          <div className=''>
+            <h4 className='text-base uppercase font-medium text-slate-500 border-b pb-1 border-slate-300'>Sort By</h4>
+            <form className='text-sm flex flex-row justify-center gap-3 py-2 divide-x-2 divide-slate-300'>
+              <div className='flex items-center gap-3'>
+                <input type='radio' name='sortBy' checked={sortBy === 'asc'} onChange={handleOnChangeSortBy} value={"asc"}/>
+                <label>Price - Low to High</label>
+              </div>
+
+              <div className='flex items-center gap-3 pl-2'>
+                <input type='radio' name='sortBy' checked={sortBy === 'dsc'} onChange={handleOnChangeSortBy} value={"dsc"}/>
+                <label>Price - High to Low</label>
+              </div>
+            </form>
+          </div>
+
+          {/**Filter By */}
+          <div className=''>
+            <h4 className='text-base uppercase font-medium text-slate-500 border-b pb-1 border-slate-300'>Category</h4>
+            <form className='text-sm grid grid-cols-3 py-2'>
+              {
+                productCategory.map((categoryName, index)=>{
+                  return(
+                    <div className='flex px-3 py-1 items-center gap-2'>
+                      <input type='checkbox' name={"category"} checked={selectCategory[categoryName?.value]} value={categoryName?.value} id={categoryName?.value} onChange={handleSelectCategory}/>
+                      <label htmlFor={categoryName?.value}>{categoryName?.label}</label>
+                    </div>
+                  )
+                })
+              }
+            </form>
+          </div>
+        </div>
+        <div className='w-full'>
+          {
+            data.length !== 0 && (
+              <HorizontalCard data={data}  loading={loading}/>
+            )
+          }
+        </div>
       </div>
         
     </div>

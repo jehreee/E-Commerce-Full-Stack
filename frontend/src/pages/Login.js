@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import loginIcons from "../assest/signin.gif";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
@@ -56,14 +56,48 @@ const Login = () => {
         }
     }
 
-    console.log("data login", data)
+    const isIOSSafari = () => {
+        const ua = window.navigator.userAgent;
+        const iOS = /iPad|iPhone|iPod/.test(ua);
+        const webkit = /WebKit/.test(ua);
+        const isChrome = /CriOS/.test(ua);
+
+        return iOS && webkit && !isChrome; // True for iOS Safari only
+        
+            // This checks if browser is safari and shows a warning message.
+
+            // This code was written because IOS has a stict privacy rules that hinders 
+            // cross-site tracking by default and blocks third-party cookies.
+
+            // This affects this site currently because its Frontend and Backend was hosted 
+            // on different domains using render.com (Cause it's free)
+
+            // If this later change (and site is being hosted on a single domain platform), 
+            // this code should be deleted so the warning message doesn't keep showing.
+        
+    }
+
+    const [showBanner, setShowBanner] = useState(false);
+
+    useEffect(() => {
+        if (isIOSSafari()) {
+            setShowBanner(true);
+        }
+    }, []);
+
   return (
     <section id='login'>
-        <div className='mx-auto container p-4'>
+        <div className='mx-auto container p-4 mt-2'>
             <div className='bg-white p-5 w-full max-w-sm mx-auto'>
                 <div className='w-20 h-20 mx-auto '>
                     <img src={loginIcons} alt='login icon'/>
                 </div>
+
+                {showBanner && (
+                    <div className="bg-yellow-100 text-yellow-800 p-3 m-2 text-sm text-center">
+                        ⚠️ Having trouble logging in on Safari or IOS? Go to <strong>Settings &gt; Apps &gt; Safari &gt; Privacy</strong> and turn off <strong>“Prevent Cross-Site Tracking”</strong>.
+                    </div>
+                )}
 
                 <form className='pt-6 flex flex-col gap-2' onSubmit={handleSubmit}>
                     <div className='grid'>
