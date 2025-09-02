@@ -21,7 +21,7 @@ const HorizontalCard = ({loading, data = []}) => {
                 {
                     loading ? (
                         loadingList.map((product, index)=>{
-                            <div className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex'>
+                            <div className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex' key={"loadingList"+index}>
                                 <div className='bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px] animate-pulse'>
                                 
                                 </div>
@@ -40,9 +40,9 @@ const HorizontalCard = ({loading, data = []}) => {
                     ) : (
                         data.map((product, index)=>{
                             return(
-                                <Link to={"/product/"+product?._id} className='flex flex-shrink-0 sm:max-w-sm sm:min-w-[280px] md:w-full md:min-w-[280px] md:max-w-[350px] h-36 bg-white rounded-sm shadow ' onClick={scrollTop}>
+                                <Link to={"/product/"+product?._id} className='flex flex-shrink-0 sm:max-w-sm sm:min-w-[280px] md:w-full md:min-w-[280px] md:max-w-[350px] h-36 bg-white rounded-sm shadow-md ' onClick={scrollTop} key={product?.category+index}>
                                     <div className='bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]'>
-                                        <img src={product.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all'/>
+                                        <img src={product.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply'/>
                                     </div>
                                     <div className='p-4 grid'>
                                         <h2 className='font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black'>{product?.productName}</h2>

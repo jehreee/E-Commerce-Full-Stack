@@ -22,11 +22,15 @@ const updateAddToCartProduct = require('../controller/user/updateAddToCartProduc
 const deleteAddToCartProduct = require('../controller/user/deleteAddToCartProduct')
 const searchProduct = require('../controller/product/searchProduct')
 const filterProductController = require('../controller/product/filterProduct')
+const userProfileDetails = require('../controller/user/userProfileDetails')
+const updateUserProfile = require('../controller/user/updateUserProfile')
 
 router.post("/signup", userSignUpController)
 router.post("/signin", userSignInController)
 router.get("/user-details", authToken, userDetailsController)
 router.get("/userLogout", userLogout)
+router.get("/user-profile", authToken, userProfileDetails)
+router.put("/user-profile", authToken, updateUserProfile)
 
 
 //admin panel

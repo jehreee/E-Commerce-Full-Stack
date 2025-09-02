@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import productCategory from '../helpers/productCategory'
 import VerticalCard from '../components/VerticalCard'
 import SummaryApi from '../common'
@@ -95,7 +95,7 @@ const CategoryProduct = () => {
     },[sortBy])
     
   return (
-    <div className='container mx-auto p-4'>
+    <div className='container mx-auto md:p-4'>
 
       {/*** desktop version */}
       <div className='hidden lg:grid grid-cols-[200px,1fr]'>
@@ -156,8 +156,8 @@ const CategoryProduct = () => {
       </div>
 
       {/**Mobile Version */}
-      <div className='lg:hidden flex flex-col gap-10 p-4'>
-        <div className='sticky top-16 z-10 shadow bg-white py-4 px-2 h-fit'>
+      <div className='lg:hidden flex flex-col gap-10 p-1 w-full'>
+        <div className='sticky top-12 z-10 shadow bg-white py-4 px-2 h-fit w-full'>
           {/** Sort By */}
           <div className=''>
             <h4 className='text-base uppercase font-medium text-slate-500 border-b pb-1 border-slate-300'>Sort By</h4>
@@ -191,7 +191,7 @@ const CategoryProduct = () => {
             </form>
           </div>
         </div>
-        <div className='w-full'>
+        <div className='w-full p-2'>
           {
             data.length !== 0 && (
               <HorizontalCard data={data}  loading={loading}/>

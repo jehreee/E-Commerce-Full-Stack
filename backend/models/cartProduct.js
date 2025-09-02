@@ -2,12 +2,16 @@ const mongoose = require('mongoose')
 
 const addToCart = mongoose.Schema({
   productId : {
+    type : mongoose.Schema.Types.ObjectId,
     ref : 'product',
-    type : String,
-    
+    required : true,
   },
-  quantity : Number,
-  userId : String,
+  quantity : {type : Number, default: 1},
+  userId : {
+    type : mongoose.Schema.Types.ObjectId,
+    ref : 'user',
+    required : true,
+  },
 },{
     timestamps : true,
 })

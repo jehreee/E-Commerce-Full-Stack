@@ -1,6 +1,6 @@
-// const backendDomain = "http://localhost:8080"
+const backendDomain = "http://localhost:8080"
 
-const backendDomain = "https://e-commerce-backend-x41t.onrender.com"
+// const backendDomain = "https://e-commerce-backend-x41t.onrender.com"
 
 const SummaryApi = {
     signUP : {
@@ -78,6 +78,14 @@ const SummaryApi = {
     filterProduct : {
         url : `${backendDomain}/api/filter-product`,
         method : 'post'
+    },
+    userProfile : {
+        url : `${backendDomain}/api/user-profile`,
+        method : 'get'
+    },
+    userProfileEdit : {
+        url : `${backendDomain}/api/user-profile`,
+        method : 'put'
     }
 
 }

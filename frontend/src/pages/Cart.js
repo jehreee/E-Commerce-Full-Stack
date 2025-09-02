@@ -12,7 +12,7 @@ const Cart = () => {
     const loadingCart = new Array(context.cartProductCount).fill(null)
 
     const fetchData = async() =>{
-        // setLoading(true)
+        setLoading(true)
         const response = await fetch(SummaryApi.addToCartProductView.url,{
             method : SummaryApi.addToCartProductView.method,
             credentials : "include",
@@ -20,13 +20,14 @@ const Cart = () => {
                 "content-type" : "appliction/json"
             },
         })
-        // setLoading(false)
+        
 
         const responseData = await response.json()
 
         if(responseData.success){
             setData(responseData.data)
         }
+        setLoading(false)
     }
 
     const handleLoading = async() => {
@@ -34,9 +35,7 @@ const Cart = () => {
     }
 
     useEffect(()=>{
-        setLoading(true)
         handleLoading()
-        setLoading(false)
     },[])
 
     const increaseQty = async(id,qty) => {
@@ -116,7 +115,7 @@ const Cart = () => {
         <div className='text-center text-lg my-3'>
             {
                 data.length === 0 && !loading && (
-                    <p className='bg-white py-5'>No Data</p>
+                    <p className='bg-white py-5'>Your Cart is Empty </p>
                 )
             }
         </div>
@@ -129,8 +128,28 @@ const Cart = () => {
                     loading ? (
                         loadingCart.map((el, index)=>{
                             return(
-                                <div key={el+"Add To Cart Loading"+index} className='w-full bg-slate-200 h-32 my-2 border border-slate-300 animate-pulse rounded'>
+                                <div key={el+"Add To Cart Loading"+index} className='w-full bg-white h-32 my-2 border border-slate-300 animate-pulse rounded grid grid-cols-[128px,1fr]'>
+                                    <div className='w-32 h-32 bg-slate-200 animate-pulse'>
 
+                                    </div>
+                                    <div className='px-4 py-2 relative'>
+                                        <div className='absolute right-0 text-red-600 rounded-full p-2 hover:bg-red-600 hover:text-white cursor-pointer' >
+                                            
+                                        </div>
+
+
+                                        <h2 className='text-lg lg:text-xl text-ellipsis line-clamp-1 p-1 bg-slate-200 animate-pulse w-44'></h2>
+                                        <p className=' capitalize text-slate-500 p-1 bg-slate-200 animate-pulse w-24 m-4'></p>
+                                        <div className='flex items-center justify-between p-3 bg-slate-200 animate-pulse rounded-full'>
+                                            <p className='text-red-600 font-medium text-lg'></p>
+                                            <p className='text-slate-600 font-semibold text-lg'></p>
+                                        </div>
+                                        <div className='flex items-center gap-3 mt-3 '>
+                                            <button className=' border bg-slate-200 animate-pulse hover:text-white w-6 h-6 flex justify-center items-center rounded' ></button>
+                                            <span></span>
+                                            <button className=' border  bg-slate-200 animate-pulse hover:bg-red-600 hover:text-white w-6 h-6 flex justify-center items-center rounded' ></button>
+                                        </div>
+                                    </div>
                                 </div>
                             )
                         })

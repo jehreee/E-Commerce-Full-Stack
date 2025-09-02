@@ -42,6 +42,16 @@ const Header = () => {
     }
   }
 
+  const handleMenuToggle = () => {
+    if (user?.role !== ROLE.ADMIN) {
+      // Non-admin: go straight to profile
+      navigate("/user-profile");
+    } else {
+      // Admin: toggle dropdown menu
+      setMenuDisplay((prev) => !prev);
+    }
+  }
+
   const handleSearch = (e)=>{
     const {value} = e.target
     setSearch(value)
@@ -73,7 +83,7 @@ const Header = () => {
 
             {
               user?._id && (
-                <div className='text-3xl cursor-pointer flex justify-center' onClick={()=>setMenuDisplay(preve => !preve)}>
+                <div className='text-3xl cursor-pointer flex justify-center' onClick={handleMenuToggle}>
                   {
                     user?.profilePic ? (
                       <img src={user?.profilePic} className='w-10 h-10 rounded-full' alt={user?.name} />
@@ -87,14 +97,24 @@ const Header = () => {
 
             {
               menuDisplay && (
-                <div className=' absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded hidden md:block'>
-                  <nav>
-                    {
-                      user?.role === ROLE.ADMIN && (
-                        <Link to={'/admin-panel/all-products'} className=' whitespace-nowrap hover:bg-slate-100 p-2' onClick={()=>setMenuDisplay(preve => !preve)}>Admin Panel</Link>
-                      )
-                    }
-                    
+                <div className=' absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded'>
+                  <nav className="flex flex-col">
+                    {user?.role === ROLE.ADMIN ? (
+                      // Show dropdown with 2 options for admin
+                      <>
+                        <Link to="/user-profile" className="whitespace-nowrap hover:bg-slate-100 p-2 rounded" onClick={handleMenuToggle}>
+                          Profile
+                        </Link>
+                        <Link to="/admin-panel/all-products" className="whitespace-nowrap hover:bg-slate-100 p-2 rounded hidden md:block" onClick={handleMenuToggle}>
+                        Admin Profile
+                        </Link>
+                      </>
+                    ) : (
+                      // Direct link for normal users (no dropdown)
+                      <Link  to="/user-profile" className="whitespace-nowrap hover:bg-slate-100 p-2 rounded" onClick={handleMenuToggle}>
+                        
+                      </Link>
+                    )}
                   </nav>
                 </div>
               )
